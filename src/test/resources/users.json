@@ -1,0 +1,50 @@
+[
+  {
+    "id": "abos",
+    "familyName": "Boss",
+    "firstName": "Andreas",
+    "balance": 0
+  },
+  {
+    "id": "elb",
+    "familyName": "Bechtold",
+    "firstName": "Elena",
+    "balance": 0
+  },
+  {
+    "id": "scha",
+    "familyName": "Schaad",
+    "firstName": "Annetta",
+    "balance": 0
+  },
+  {
+    "id": "hk",
+    "familyName": "Hermanek",
+    "firstName": "Meinrad",
+    "balance": 0
+  },
+  {
+    "id": "mav",
+    "familyName": "Valasek",
+    "firstName": "Martin",
+    "balance": 0
+  },
+  {
+    "id": "eid",
+    "familyName": "Danielsen",
+    "firstName": "Eirik",
+    "balance": 0
+  },
+  {
+    "id": "fsi",
+    "familyName": "Frankenberger",
+    "firstName": "Simon",
+    "balance": 0
+  },
+  {
+    "id": "mg",
+    "familyName": "Gantenbein",
+    "firstName": "Martin",
+    "balance": 0
+  }
+]
