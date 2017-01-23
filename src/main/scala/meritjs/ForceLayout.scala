@@ -16,6 +16,9 @@ trait ForceLayout {
     val width: Double = java.lang.Double.valueOf(svg.attr("width"))
     val height: Double = java.lang.Double.valueOf(svg.attr("height"))
 
+    println(nodes.length)
+    println(links.length)
+
     val force = d3.layout.force()
       .size((width, height))
       .nodes(nodes)

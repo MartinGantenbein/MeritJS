@@ -9,36 +9,19 @@ import org.singlespaced.d3js.forceModule.{Force, Node}
   * Created by gante on 19.01.17.
   */
 
-@js.native
-trait JSMeritNode extends js.Object {
-  val id: String=js.native
-  val balance: Int=js.native
-}
-
-@js.native
-trait JSMeritLink extends js.Object {
-  val from:   String=js.native
-  val to:     String=js.native
-  val amount: Int=js.native
-}
-
 class MeritNode(val id: String, val balance: Int) extends Node
 class MeritLink(val source: MeritNode, val target: MeritNode, val amount: Double) extends Link[MeritNode]
 
-object MeritJS extends js.JSApp with ForceLayout {
+object MeritJS extends js.JSApp with Json with ForceLayout {
   def main(): Unit = {
-    getJson("/v1/users", nodeCallback("/v1/transactions", linkCallback))
+    getJson("config.json", configCallback)
   }
 
-  private def getJson[T](uri: String, callback: (T) => Unit): Unit = {
-    d3.json(Configuration.baseUrl + uri, (error: js.Any, json: js.Any) => {
-      if (error != null) {
-        js.Dynamic.global.console.error(error)
-      }
-      else {
-        callback(json.asInstanceOf[T])
-      }
-    })
+  private def configCallback(cfg: Config) {
+    val usrUri = s"${cfg.baseUrl}/${cfg.version}/${cfg.users}"
+    val trxUri = s"${cfg.baseUrl}/${cfg.version}/${cfg.transactions}"
+
+    getJson(usrUri, nodeCallback(trxUri, linkCallback))
   }
 
   private def nodeCallback(linkUri: String, callback: (Array[MeritNode]) => (Array[JSMeritLink]) => Force[MeritNode, MeritLink])(nodesJson: Array[JSMeritNode]): Unit = {

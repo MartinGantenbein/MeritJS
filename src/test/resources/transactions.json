@@ -1,14 +1,5 @@
 [
   {
-    "booked": false,
-    "reason": "You are a beauty!",
-    "amount": 1,
-    "to": "abos",
-    "id": "3eb595f4-40a1-42bd-bceb-9a39164e0161",
-    "date": "2017-01-16",
-    "from": "elb"
-  },
-  {
     "amount": 1,
     "to": "abos",
     "from": "elb"

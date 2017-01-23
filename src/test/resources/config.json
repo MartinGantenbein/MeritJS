@@ -1,0 +1,6 @@
+{
+  "baseUrl": "../../test/resources",
+  "version": "",
+  "users": "users.json",
+  "transactions": "transactions.json"
+}
