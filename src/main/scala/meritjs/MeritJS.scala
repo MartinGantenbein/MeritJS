@@ -9,7 +9,7 @@ import org.singlespaced.d3js.forceModule.{Force, Node}
   * Created by gante on 19.01.17.
   */
 
-class MeritNode(val id: String, val balance: Int) extends Node
+class MeritNode(val id: String, val balance: Int, val fill: String = "#000") extends Node
 class MeritLink(val source: MeritNode, val target: MeritNode, val amount: Double) extends Link[MeritNode]
 
 object MeritJS extends js.JSApp with Json with ForceLayout {
@@ -30,11 +30,21 @@ object MeritJS extends js.JSApp with Json with ForceLayout {
   }
 
   private def linkCallback(nodes: Array[MeritNode])(linksJson: Array[JSMeritLink]) = {
-    val nodeSeq: Seq[(String, MeritNode)] = for (n <- nodes) yield (n.id, n)
-    val nodeMap = nodeSeq.toMap
-    val links = linksJson.filter((l) => nodeMap.contains(l.from) && nodeMap.contains(l.to))
-      .map(l => new MeritLink(nodeMap(l.from), nodeMap(l.to), l.amount))
+    def getLinks(nodes: Array[MeritNode], senderPrefix: String = "", receiverPrefix: String = "") = {
+      val nodeMap = (for (n <- nodes) yield (n.id, n)).toMap
+      linksJson.filter((l) => nodeMap.contains(s"$senderPrefix${l.from}")
+        && nodeMap.contains(s"$senderPrefix${l.to}"))
+        .map(l => new MeritLink(
+          nodeMap(s"$senderPrefix${l.from}"),
+          nodeMap(s"$receiverPrefix${l.to}"),
+          l.amount))
+    }
 
-    createForceLayout(nodes, links).start()
+    createForceLayout("force", nodes, getLinks(nodes)).start()
+
+    val nodes2 = nodes.flatMap((n) => Array(
+      new MeritNode(s"from: ${n.id}", n.balance, "#0f0"),
+      new MeritNode(s"to: ${n.id}", n.balance, "#f00")))
+    createForceLayout("force2", nodes2, getLinks(nodes2, "from: ", "to: ")).start()
   }
 }

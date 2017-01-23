@@ -11,13 +11,10 @@ import scala.scalajs.js.Array
   * Created by gante on 22.01.17.
   */
 trait ForceLayout {
-  def createForceLayout(nodes: Array[MeritNode], links: Array[MeritLink]) = {
-    val svg = d3.select("#force")
+  def createForceLayout(svgId: String, nodes: Array[MeritNode], links: Array[MeritLink]) = {
+    val svg = d3.select(s"#$svgId")
     val width: Double = java.lang.Double.valueOf(svg.attr("width"))
     val height: Double = java.lang.Double.valueOf(svg.attr("height"))
-
-    println(nodes.length)
-    println(links.length)
 
     val force = d3.layout.force()
       .size((width, height))
@@ -47,6 +44,7 @@ trait ForceLayout {
     node.attr("r", 5)
       .attr("cx", (n: MeritNode) => n.x)
       .attr("cy", (n: MeritNode) => n.y)
+      .attr("fill", (n: MeritNode) => n.fill)
 
     link.attr("stroke-width", (l: MeritLink) => Math.sqrt(l.amount))
       .attr("x1", (l: MeritLink) => l.source.x)
