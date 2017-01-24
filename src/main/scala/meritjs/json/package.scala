@@ -9,8 +9,10 @@ import scala.scalajs.js
   */
 @js.native
 trait JSMeritNode extends js.Object {
-  val id: String=js.native
-  val balance: Int=js.native
+  val userId: String=js.native
+  val name: String=js.native
+  val sent: Int=js.native
+  val received: Int=js.native
 }
 
 @js.native
@@ -26,10 +28,14 @@ trait Config extends js.Object {
   val version: String=js.native
   val users: String=js.native
   val transactions: String=js.native
+  val merits: String=js.native
+  val graph_width: Double=js.native
+  val graph_height: Double=js.native
 }
 
 trait Json {
   protected def getJson[T](uri: String, callback: (T) => Unit): Unit = {
+    println(uri)
     d3.json(uri, (error: js.Any, json: js.Any) => {
       if (error != null) {
         js.Dynamic.global.console.error(error)

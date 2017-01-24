@@ -1,6 +1,0 @@
-{
-  "baseUrl": "http://localhost:9000",
-  "version": "v1",
-  "users": "users",
-  "transactions": "transactions"
-}

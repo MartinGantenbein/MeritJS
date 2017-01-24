@@ -9,7 +9,10 @@ import org.singlespaced.d3js.forceModule.{Force, Node}
   * Created by gante on 19.01.17.
   */
 
-class MeritNode(val id: String, val balance: Int, val fill: String = "#000") extends Node
+class MeritNode(val id: String, val name: String, val sent: Int, val received: Int, val fill: String = "#000")(implicit cfg: Config) extends Node {
+  x = 200
+  y = 200
+}
 class MeritLink(val source: MeritNode, val target: MeritNode, val amount: Double) extends Link[MeritNode]
 
 object MeritJS extends js.JSApp with Json with ForceLayout {
@@ -20,16 +23,18 @@ object MeritJS extends js.JSApp with Json with ForceLayout {
   private def configCallback(cfg: Config) {
     val usrUri = s"${cfg.baseUrl}/${cfg.version}/${cfg.users}"
     val trxUri = s"${cfg.baseUrl}/${cfg.version}/${cfg.transactions}"
+    val mrtUri = s"${cfg.baseUrl}/${cfg.version}/${cfg.merits}"
 
-    getJson(usrUri, nodeCallback(trxUri, linkCallback))
+    implicit val configuration = cfg
+    getJson(mrtUri, nodeCallback(trxUri, linkCallback))
   }
 
-  private def nodeCallback(linkUri: String, callback: (Array[MeritNode]) => (Array[JSMeritLink]) => Force[MeritNode, MeritLink])(nodesJson: Array[JSMeritNode]): Unit = {
-    val nodes = nodesJson.map(n => new MeritNode(n.id, n.balance))
+  private def nodeCallback(linkUri: String, callback: (Array[MeritNode]) => (Array[JSMeritLink]) => Force[MeritNode, MeritLink])(nodesJson: Array[JSMeritNode])(implicit cfg: Config): Unit = {
+    val nodes = nodesJson.map(n => new MeritNode(n.userId, n.name, n.sent, n.received))
     getJson(linkUri, linkCallback(nodes))
   }
 
-  private def linkCallback(nodes: Array[MeritNode])(linksJson: Array[JSMeritLink]) = {
+  private def linkCallback(nodes: Array[MeritNode])(linksJson: Array[JSMeritLink])(implicit cfg: Config) = {
     def getLinks(nodes: Array[MeritNode], senderPrefix: String = "", receiverPrefix: String = "") = {
       val nodeMap = (for (n <- nodes) yield (n.id, n)).toMap
       linksJson.filter((l) => nodeMap.contains(s"$senderPrefix${l.from}")
@@ -40,11 +45,11 @@ object MeritJS extends js.JSApp with Json with ForceLayout {
           l.amount))
     }
 
-    createForceLayout("force", nodes, getLinks(nodes)).start()
+    createForceLayout("force", nodes, getLinks(nodes))
 
     val nodes2 = nodes.flatMap((n) => Array(
-      new MeritNode(s"from: ${n.id}", n.balance, "#0f0"),
-      new MeritNode(s"to: ${n.id}", n.balance, "#f00")))
-    createForceLayout("force2", nodes2, getLinks(nodes2, "from: ", "to: ")).start()
+      new MeritNode(s"from: ${n.id}", n.name, n.sent, n.received, "#0f0"),
+      new MeritNode(s"to: ${n.id}", n.name, n.sent, n.received, "#f00")))
+    createForceLayout("force2", nodes2, getLinks(nodes2, "from: ", "to: "))
   }
 }
