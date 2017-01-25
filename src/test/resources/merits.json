@@ -1,0 +1,93 @@
+[
+	{
+		"name": "Elena Bechtold",
+		"sent": 4,
+		"available": 7,
+		"userId": "elb",
+		"received": 12
+	},
+	{
+		"name": "Jörg Bächtiger",
+		"sent": 9,
+		"available": 2,
+		"userId": "jrb",
+		"received": 10
+	},
+	{
+		"name": "Felix Pflanzl",
+		"sent": 9,
+		"available": 2,
+		"userId": "fep",
+		"received": 5
+	},
+	{
+		"name": "Meinrad Hermanek",
+		"sent": 11,
+		"available": 0,
+		"userId": "hk",
+		"received": 3
+	},
+	{
+		"name": "Martin Valasek",
+		"sent": 6,
+		"available": 5,
+		"userId": "mav",
+		"received": 2
+	},
+	{
+		"name": "Makar Szokolov",
+		"sent": 11,
+		"available": 0,
+		"userId": "so",
+		"received": 6
+	},
+	{
+		"name": "Annetta Schaad",
+		"sent": 7,
+		"available": 4,
+		"userId": "scha",
+		"received": 10
+	},
+	{
+		"name": "Hans-Peter Keilhofer",
+		"sent": 11,
+		"available": 0,
+		"userId": "hpk",
+		"received": 4
+	},
+	{
+		"name": "Martin Jungbauer",
+		"sent": 2,
+		"available": 9,
+		"userId": "maj",
+		"received": 3
+	},
+	{
+		"name": "Martin Gantenbein",
+		"sent": 11,
+		"available": 0,
+		"userId": "mg",
+		"received": 11
+	},
+	{
+		"name": "Simon Frankenberger",
+		"sent": 7,
+		"available": 4,
+		"userId": "fsi",
+		"received": 4
+	},
+	{
+		"name": "Eirik Danielsen",
+		"sent": 9,
+		"available": 2,
+		"userId": "eid",
+		"received": 6
+	},
+	{
+		"name": "Andreas Boss",
+		"sent": 4,
+		"available": 7,
+		"userId": "abos",
+		"received": 25
+	}
+]

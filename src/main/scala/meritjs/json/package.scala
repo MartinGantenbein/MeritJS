@@ -20,6 +20,7 @@ trait JSMeritLink extends js.Object {
   val from:   String=js.native
   val to:     String=js.native
   val amount: Int=js.native
+  val booked: Boolean=js.native
 }
 
 @js.native
@@ -35,7 +36,6 @@ trait Config extends js.Object {
 
 trait Json {
   protected def getJson[T](uri: String, callback: (T) => Unit): Unit = {
-    println(uri)
     d3.json(uri, (error: js.Any, json: js.Any) => {
       if (error != null) {
         js.Dynamic.global.console.error(error)

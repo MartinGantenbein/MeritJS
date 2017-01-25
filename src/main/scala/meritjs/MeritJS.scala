@@ -1,55 +1,62 @@
 package meritjs
 
+import meritjs.layouts.Force
+
 import scala.scalajs.js
 import scala.scalajs.js.Array
-import org.singlespaced.d3js.{Link, d3}
-import org.singlespaced.d3js.forceModule.{Force, Node}
+import org.singlespaced.d3js.d3
+
+import scala.scalajs.js.annotation.JSExport
 
 /**
   * Created by gante on 19.01.17.
   */
+object MeritJS extends js.JSApp with Json {
+  var config: Config = _
+  var onReady: Option[String] = None
+  var merits: Array[JSMeritNode] = _
+  var trx: Array[JSMeritLink] = _
 
-class MeritNode(val id: String, val name: String, val sent: Int, val received: Int, val fill: String = "#000")(implicit cfg: Config) extends Node {
-  x = 200
-  y = 200
-}
-class MeritLink(val source: MeritNode, val target: MeritNode, val amount: Double) extends Link[MeritNode]
-
-object MeritJS extends js.JSApp with Json with ForceLayout {
   def main(): Unit = {
     getJson("config.json", configCallback)
   }
 
+  @JSExport
+  def draw(graphType: String): Unit = {
+    if(trx == null) {
+      println("setting onReady")
+      onReady = Option(graphType)
+    }
+    else {
+      val svg = d3.select("#graph")
+      svg.selectAll("*").remove()
+      svg.attr("width", config.graph_width)
+      svg.attr("height", config.graph_height)
+      graphType match {
+        case "force" => new Force(svg, merits, trx, config.graph_width, config.graph_height)
+        case "force-split" => new Force(svg, merits, trx, config.graph_width, config.graph_height, true)
+      }
+    }
+  }
+
   private def configCallback(cfg: Config) {
-    val usrUri = s"${cfg.baseUrl}/${cfg.version}/${cfg.users}"
     val trxUri = s"${cfg.baseUrl}/${cfg.version}/${cfg.transactions}"
     val mrtUri = s"${cfg.baseUrl}/${cfg.version}/${cfg.merits}"
-
-    implicit val configuration = cfg
-    getJson(mrtUri, nodeCallback(trxUri, linkCallback))
+    getJson(mrtUri, meritCallback(trxUri))
+    config = cfg
   }
 
-  private def nodeCallback(linkUri: String, callback: (Array[MeritNode]) => (Array[JSMeritLink]) => Force[MeritNode, MeritLink])(nodesJson: Array[JSMeritNode])(implicit cfg: Config): Unit = {
-    val nodes = nodesJson.map(n => new MeritNode(n.userId, n.name, n.sent, n.received))
-    getJson(linkUri, linkCallback(nodes))
+  private def meritCallback(trxUri: String)(nodesJson: Array[JSMeritNode]): Unit = {
+    merits = nodesJson
+    getJson(trxUri, trxCallback)
   }
 
-  private def linkCallback(nodes: Array[MeritNode])(linksJson: Array[JSMeritLink])(implicit cfg: Config) = {
-    def getLinks(nodes: Array[MeritNode], senderPrefix: String = "", receiverPrefix: String = "") = {
-      val nodeMap = (for (n <- nodes) yield (n.id, n)).toMap
-      linksJson.filter((l) => nodeMap.contains(s"$senderPrefix${l.from}")
-        && nodeMap.contains(s"$senderPrefix${l.to}"))
-        .map(l => new MeritLink(
-          nodeMap(s"$senderPrefix${l.from}"),
-          nodeMap(s"$receiverPrefix${l.to}"),
-          l.amount))
+  private def trxCallback(trxJson: Array[JSMeritLink]) = {
+    trx = trxJson
+
+    onReady match {
+      case None => {}
+      case Some(g) => draw(g)
     }
-
-    createForceLayout("force", nodes, getLinks(nodes))
-
-    val nodes2 = nodes.flatMap((n) => Array(
-      new MeritNode(s"from: ${n.id}", n.name, n.sent, n.received, "#0f0"),
-      new MeritNode(s"to: ${n.id}", n.name, n.sent, n.received, "#f00")))
-    createForceLayout("force2", nodes2, getLinks(nodes2, "from: ", "to: "))
   }
 }

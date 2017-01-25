@@ -1,42 +1,623 @@
 [
-  {
-    "amount": 1,
-    "to": "abos",
-    "from": "elb"
-  },
-  {
-    "amount": 4,
-    "to": "hk",
-    "from": "fsi"
-  },
-  {
-    "amount": 2,
-    "to": "eid",
-    "from": "scha"
-  },
-  {
-    "amount": 2,
-    "to": "mav",
-    "from": "mg"
-  },
-  {
-    "amount": 1,
-    "to": "abos",
-    "from": "hk"
-  },
-  {
-    "amount": 2,
-    "to": "mg",
-    "from": "fsi"
-  },
-  {
-    "amount": 2,
-    "to": "scha",
-    "from": "abos"
-  },
-  {
-    "amount": 2,
-    "to": "eid",
-    "from": "mg"
-  }
+	{
+		"booked": false,
+		"reason": "",
+		"amount": 1,
+		"to": "jrb",
+		"id": "5a781995-5502-4ad4-afaf-ffa866d0b2f4",
+		"date": "2017-01-18T00:00",
+		"from": "elb"
+	},
+	{
+		"booked": false,
+		"reason": "",
+		"amount": 1,
+		"to": "so",
+		"id": "9ac1e9f3-d6fa-421b-916e-fb23d76c187b",
+		"date": "2017-01-18T00:00",
+		"from": "elb"
+	},
+	{
+		"booked": false,
+		"reason": "",
+		"amount": 1,
+		"to": "hpk",
+		"id": "9cf67a7a-9891-4ea1-8c33-8bbc1c6a2523",
+		"date": "2017-01-18T00:00",
+		"from": "elb"
+	},
+	{
+		"booked": false,
+		"reason": "",
+		"amount": 1,
+		"to": "eid",
+		"id": "e13bd681-40fb-4e35-ad7c-f3c83077f638",
+		"date": "2017-01-18T00:00",
+		"from": "elb"
+	},
+	{
+		"booked": false,
+		"reason": "",
+		"amount": 1,
+		"to": "hk",
+		"id": "c2c5ba5e-4c67-4a99-8977-5c906e5cb194",
+		"date": "2017-01-18T00:00",
+		"from": "jrb"
+	},
+	{
+		"booked": false,
+		"reason": "",
+		"amount": 1,
+		"to": "abos",
+		"id": "1db648ce-a718-40b0-a6bf-eff3d816baf5",
+		"date": "2017-01-18T00:00",
+		"from": "fep"
+	},
+	{
+		"booked": false,
+		"reason": "",
+		"amount": 1,
+		"to": "eid",
+		"id": "2122cb66-f2f8-40dc-95cf-c4a68b8a328b",
+		"date": "2017-01-18T00:00",
+		"from": "fep"
+	},
+	{
+		"booked": false,
+		"reason": "",
+		"amount": 1,
+		"to": "jrb",
+		"id": "a3d4439e-9041-466a-9597-75ed4dbbf2c7",
+		"date": "2017-01-18T00:00",
+		"from": "hk"
+	},
+	{
+		"booked": false,
+		"reason": "",
+		"amount": 1,
+		"to": "elb",
+		"id": "8a7dc569-0d91-4424-8e3e-78fe163ced96",
+		"date": "2017-01-18T00:00",
+		"from": "hk"
+	},
+	{
+		"booked": false,
+		"reason": "",
+		"amount": 1,
+		"to": "abos",
+		"id": "1a0aea05-b375-4a8e-a8bd-ce9ace3dc695",
+		"date": "2017-01-18T00:00",
+		"from": "hk"
+	},
+	{
+		"booked": false,
+		"reason": "",
+		"amount": 1,
+		"to": "scha",
+		"id": "ab24857e-81f5-459c-8d6f-f81d5028ee01",
+		"date": "2017-01-18T00:00",
+		"from": "hk"
+	},
+	{
+		"booked": false,
+		"reason": "",
+		"amount": 1,
+		"to": "abos",
+		"id": "b6617f08-8e76-450f-9467-276b5ab75065",
+		"date": "2017-01-18T00:00",
+		"from": "scha"
+	},
+	{
+		"booked": false,
+		"reason": "",
+		"amount": 1,
+		"to": "eid",
+		"id": "7bacfef8-4604-44d7-b226-fb92cae42ff3",
+		"date": "2017-01-18T00:00",
+		"from": "scha"
+	},
+	{
+		"booked": false,
+		"reason": "",
+		"amount": 2,
+		"to": "mg",
+		"id": "c668cfa6-e08f-4ad0-a368-97fd321e55ea",
+		"date": "2017-01-18T00:00",
+		"from": "scha"
+	},
+	{
+		"booked": false,
+		"reason": "",
+		"amount": 1,
+		"to": "fep",
+		"id": "447bffe3-b248-4d8f-9cd0-d0b9620c6240",
+		"date": "2017-01-18T00:00",
+		"from": "hpk"
+	},
+	{
+		"booked": false,
+		"reason": "",
+		"amount": 1,
+		"to": "elb",
+		"id": "e0be079b-0176-499b-aeaa-5c9484c8d038",
+		"date": "2017-01-18T00:00",
+		"from": "hpk"
+	},
+	{
+		"booked": false,
+		"reason": "",
+		"amount": 1,
+		"to": "maj",
+		"id": "42a502e9-0f70-48d3-8c7d-5082921229ba",
+		"date": "2017-01-18T00:00",
+		"from": "mg"
+	},
+	{
+		"booked": false,
+		"reason": "",
+		"amount": 2,
+		"to": "fsi",
+		"id": "d719bd70-2ac6-48b4-a5cc-2a6664976ed2",
+		"date": "2017-01-18T00:00",
+		"from": "mg"
+	},
+	{
+		"booked": false,
+		"reason": "",
+		"amount": 1,
+		"to": "scha",
+		"id": "47514f6b-fe2b-46f3-b30d-b8c6a53e5f47",
+		"date": "2017-01-18T00:00",
+		"from": "mg"
+	},
+	{
+		"booked": false,
+		"reason": "",
+		"amount": 1,
+		"to": "abos",
+		"id": "cdf758d8-02d4-44bb-9707-31c61bd3e059",
+		"date": "2017-01-18T00:00",
+		"from": "mg"
+	},
+	{
+		"booked": false,
+		"reason": "",
+		"amount": 2,
+		"to": "eid",
+		"id": "29185044-f9cb-4ed7-ba48-472e0516ec03",
+		"date": "2017-01-18T00:00",
+		"from": "mg"
+	},
+	{
+		"booked": false,
+		"reason": "",
+		"amount": 2,
+		"to": "scha",
+		"id": "ccc35fec-dde1-4282-bd3a-dc7406139b6b",
+		"date": "2017-01-18T00:00",
+		"from": "fsi"
+	},
+	{
+		"booked": false,
+		"reason": "",
+		"amount": 1,
+		"to": "eid",
+		"id": "45a5ead6-7ad8-455f-9aac-22148fc5a5d0",
+		"date": "2017-01-18T00:00",
+		"from": "fsi"
+	},
+	{
+		"booked": false,
+		"reason": "",
+		"amount": 1,
+		"to": "scha",
+		"id": "31e9d3c6-61dc-4c5d-ad96-241ba8858141",
+		"date": "2017-01-18T00:00",
+		"from": "abos"
+	},
+	{
+		"booked": false,
+		"reason": "",
+		"amount": 2,
+		"to": "mg",
+		"id": "3490fedd-f988-4a6f-93b9-7db9afddca2c",
+		"date": "2017-01-18T00:00",
+		"from": "abos"
+	},
+	{
+		"booked": false,
+		"reason": "",
+		"amount": 2,
+		"to": "elb",
+		"id": "474c874f-bd73-4feb-b35d-a470290be2f0",
+		"date": "2017-01-18T00:00",
+		"from": "eid"
+	},
+	{
+		"booked": false,
+		"reason": "Für den MeritServer",
+		"amount": 2,
+		"to": "abos",
+		"id": "953835d4-187c-4be0-8902-23ed0484bf8c",
+		"date": "2017-01-18T00:00",
+		"from": "hpk"
+	},
+	{
+		"booked": false,
+		"reason": "MeritServer: Super Sache, IPO in 2019!!!",
+		"amount": 5,
+		"to": "abos",
+		"id": "7bf99d06-8b33-4774-a011-dff3fae2d14b",
+		"date": "2017-01-18T00:00",
+		"from": "eid"
+	},
+	{
+		"booked": false,
+		"reason": "Für die ScS Präsentation",
+		"amount": 1,
+		"to": "jrb",
+		"id": "0b04bef7-6cbd-4601-b5d8-23aaf1240a7b",
+		"date": "2017-01-18T00:00",
+		"from": "hpk"
+	},
+	{
+		"booked": false,
+		"reason": "Für den MeritServer",
+		"amount": 1,
+		"to": "abos",
+		"id": "edcb1342-7f21-4c64-ba81-5bd1c3a2a7b6",
+		"date": "2017-01-18T00:00",
+		"from": "fep"
+	},
+	{
+		"booked": false,
+		"reason": "Für den MeritServer",
+		"amount": 2,
+		"to": "abos",
+		"id": "f4c90c3c-9baa-419c-af56-150a2240ff37",
+		"date": "2017-01-18T00:00",
+		"from": "fsi"
+	},
+	{
+		"booked": false,
+		"reason": "Für Begriff-Klärung Microservice/Self-contained System",
+		"amount": 1,
+		"to": "jrb",
+		"id": "38a10100-8c80-42c0-be7e-997c161a3f78",
+		"date": "2017-01-18T00:00",
+		"from": "scha"
+	},
+	{
+		"booked": false,
+		"reason": "Vielen Dank für die Clementinen.",
+		"amount": 1,
+		"to": "so",
+		"id": "e8fb6ac9-806f-4327-abc9-f5dcdda9d588",
+		"date": "2017-01-18T00:00",
+		"from": "abos"
+	},
+	{
+		"booked": false,
+		"reason": "Für die Aufforderung zur Pause :)",
+		"amount": 1,
+		"to": "elb",
+		"id": "2b0a7702-6175-4aa0-a1a1-e5824294fb39",
+		"date": "2017-01-18T00:00",
+		"from": "fep"
+	},
+	{
+		"booked": false,
+		"reason": "Für die Begriffsklärungen",
+		"amount": 1,
+		"to": "jrb",
+		"id": "8fda2664-6ae0-433f-9528-6f16c09888dc",
+		"date": "2017-01-19T00:00",
+		"from": "hk"
+	},
+	{
+		"booked": false,
+		"reason": "Für den MeritServier :-) Coole sache!",
+		"amount": 1,
+		"to": "abos",
+		"id": "797438dc-bdd8-4ef8-bda7-3c25c789715c",
+		"date": "2017-01-19T00:00",
+		"from": "hk"
+	},
+	{
+		"booked": false,
+		"reason": "Immer hilfsbereit, danke!",
+		"amount": 2,
+		"to": "fsi",
+		"id": "798bb6b8-d4b5-4eb9-98c5-924f6e4d2ab5",
+		"date": "2017-01-19T00:00",
+		"from": "eid"
+	},
+	{
+		"booked": false,
+		"reason": "... die Rennerei zwischen T3 und KB Team.",
+		"amount": 1,
+		"to": "mav",
+		"id": "15ade977-af66-41c9-87f0-e2a986851bbe",
+		"date": "2017-01-19T00:00",
+		"from": "fep"
+	},
+	{
+		"booked": false,
+		"reason": "Für den Support",
+		"amount": 3,
+		"to": "fep",
+		"id": "ef4095b8-9e5c-43cb-9a17-445acf9a2f26",
+		"date": "2017-01-19T00:00",
+		"from": "mav"
+	},
+	{
+		"booked": false,
+		"reason": "Für den Support",
+		"amount": 3,
+		"to": "elb",
+		"id": "4daf7d73-f266-4c83-95af-3859220112e5",
+		"date": "2017-01-19T00:00",
+		"from": "mav"
+	},
+	{
+		"booked": false,
+		"reason": "Für das Finden einer guten Lösung des Problems im HAL Ticket",
+		"amount": 2,
+		"to": "elb",
+		"id": "e23f3d50-b1b8-47ee-a06c-3ab5d0b944e0",
+		"date": "2017-01-20T00:00",
+		"from": "hpk"
+	},
+	{
+		"booked": false,
+		"reason": "Für die Unterstützung beim HAL Ticket",
+		"amount": 1,
+		"to": "jrb",
+		"id": "b24af758-f02b-4d60-94d0-d54e1ae1c4c5",
+		"date": "2017-01-20T00:00",
+		"from": "hpk"
+	},
+	{
+		"booked": false,
+		"reason": "Weil effizent und effektiv, bleibt am Ball, arbeitet überall mit und gibt Gas",
+		"amount": 2,
+		"to": "scha",
+		"id": "b726a2ca-21e0-4759-bac2-70f14400627e",
+		"date": "2017-01-23T00:00",
+		"from": "hk"
+	},
+	{
+		"booked": false,
+		"reason": "Weil effizent und effektiv, bleibt am Ball, arbeitet überall mit und gibt Gas",
+		"amount": 2,
+		"to": "mg",
+		"id": "72cfac27-bd3a-4856-a4ae-c8a603ba7e0f",
+		"date": "2017-01-23T00:00",
+		"from": "hk"
+	},
+	{
+		"booked": false,
+		"reason": "Wegen der ruhigen Art und den immer wieder guten Ideen",
+		"amount": 1,
+		"to": "hpk",
+		"id": "97d57337-5066-4a56-aa48-a420ff0de103",
+		"date": "2017-01-23T00:00",
+		"from": "hk"
+	},
+	{
+		"booked": false,
+		"reason": "COP API Design",
+		"amount": 2,
+		"to": "hk",
+		"id": "2dc7e769-5849-49bb-873e-e5a4f75f6eb4",
+		"date": "2017-01-23T08:24:50.324",
+		"from": "jrb"
+	},
+	{
+		"booked": false,
+		"reason": "Ssala",
+		"amount": 1,
+		"to": "elb",
+		"id": "cb17862d-41e9-45d2-9d4c-941039c2fabd",
+		"date": "2017-01-23T08:25:23.508",
+		"from": "jrb"
+	},
+	{
+		"booked": false,
+		"reason": "Team-Event",
+		"amount": 4,
+		"to": "so",
+		"id": "6f035c51-a5d7-41b2-961f-a2961b16ceb1",
+		"date": "2017-01-23T08:26:11.847",
+		"from": "jrb"
+	},
+	{
+		"booked": false,
+		"reason": "Merit-Server",
+		"amount": 1,
+		"to": "abos",
+		"id": "d1a41f95-ccc0-4f4b-a99c-e660b9f2fe2d",
+		"date": "2017-01-23T08:26:46.051",
+		"from": "jrb"
+	},
+	{
+		"booked": false,
+		"reason": "Für den MeritServer #2",
+		"amount": 2,
+		"to": "abos",
+		"id": "21b4468f-4611-46e9-ad30-2b1fafa75068",
+		"date": "2017-01-23T08:32:17.065",
+		"from": "fsi"
+	},
+	{
+		"booked": false,
+		"reason": "Merit Server Tickets",
+		"amount": 2,
+		"to": "abos",
+		"id": "eadaa599-2656-4138-871c-b7fedb35cdf0",
+		"date": "2017-01-23T08:33:32.013",
+		"from": "hpk"
+	},
+	{
+		"booked": false,
+		"reason": "Generalcomponent tests fixed",
+		"amount": 1,
+		"to": "mg",
+		"id": "b07bad8b-d116-40bc-a0c8-1668079bea2c",
+		"date": "2017-01-23T08:35:01.379",
+		"from": "hpk"
+	},
+	{
+		"booked": false,
+		"reason": "Pairing",
+		"amount": 1,
+		"to": "scha",
+		"id": "755906b8-411a-4482-ae71-b4d7c28470f2",
+		"date": "2017-01-23T08:35:36.996",
+		"from": "maj"
+	},
+	{
+		"booked": false,
+		"reason": "QA",
+		"amount": 1,
+		"to": "mg",
+		"id": "6dd2efb0-cb88-41d0-97db-47459532fb26",
+		"date": "2017-01-23T08:36:00.497",
+		"from": "maj"
+	},
+	{
+		"booked": false,
+		"reason": "Pairing",
+		"amount": 1,
+		"to": "maj",
+		"id": "876cfecd-846a-43f8-a839-4f71549849bc",
+		"date": "2017-01-23T08:37:45.789",
+		"from": "scha"
+	},
+	{
+		"booked": false,
+		"reason": "Pairing",
+		"amount": 1,
+		"to": "mg",
+		"id": "1e5d0f04-6b40-491c-81cd-e27b47444c1d",
+		"date": "2017-01-23T08:37:54.369",
+		"from": "scha"
+	},
+	{
+		"booked": false,
+		"reason": "Für den MeritServer",
+		"amount": 3,
+		"to": "abos",
+		"id": "df380080-6ec8-449c-b4af-f95b27aae7c3",
+		"date": "2017-01-23T09:13:11.685",
+		"from": "so"
+	},
+	{
+		"booked": false,
+		"reason": "MeritServer enhancements...",
+		"amount": 2,
+		"to": "abos",
+		"id": "d66f713c-d17d-41e3-9dcb-2060e8bae29f",
+		"date": "2017-01-23T09:14:59.209",
+		"from": "fep"
+	},
+	{
+		"booked": false,
+		"reason": "MeritJS",
+		"amount": 2,
+		"to": "mg",
+		"id": "325fba68-adb4-43f6-946a-d699327a149e",
+		"date": "2017-01-23T09:15:26.962",
+		"from": "fep"
+	},
+	{
+		"booked": false,
+		"reason": "Für Normalisierung der Beziehung mit Alex",
+		"amount": 3,
+		"to": "jrb",
+		"id": "83db314c-72f8-47a1-8099-5e51a3d32b71",
+		"date": "2017-01-23T16:05:08.780",
+		"from": "so"
+	},
+	{
+		"booked": false,
+		"reason": "Für T3 Manifest",
+		"amount": 1,
+		"to": "jrb",
+		"id": "c3a0e254-1417-47c0-a5df-4ee696106a3a",
+		"date": "2017-01-23T16:05:53.088",
+		"from": "so"
+	},
+	{
+		"booked": false,
+		"reason": "Für interessante Gespräche beim Rauchen",
+		"amount": 1,
+		"to": "elb",
+		"id": "6b23e830-84df-414a-b39d-c3ada5b04bc4",
+		"date": "2017-01-23T16:08:28.866",
+		"from": "so"
+	},
+	{
+		"booked": false,
+		"reason": "Weil sie stabil und schnell ist",
+		"amount": 1,
+		"to": "scha",
+		"id": "ed5d77d1-0976-4f0b-ac67-ab5c442cfd5c",
+		"date": "2017-01-23T16:13:36.615",
+		"from": "so"
+	},
+	{
+		"booked": false,
+		"reason": "Hilfe bei General Components",
+		"amount": 1,
+		"to": "mav",
+		"id": "9ff8d862-3404-4763-a88f-307eb638aec3",
+		"date": "2017-01-23T16:38:20.829",
+		"from": "mg"
+	},
+	{
+		"booked": false,
+		"reason": "Pairing F2QDBAC0",
+		"amount": 1,
+		"to": "scha",
+		"id": "20d34182-97ff-4d71-8b96-90ba7bf0d0e0",
+		"date": "2017-01-23T16:38:44.735",
+		"from": "mg"
+	},
+	{
+		"booked": false,
+		"reason": "QA-Testing F2QDBAC0",
+		"amount": 1,
+		"to": "maj",
+		"id": "5d0f6e6c-c254-4f2e-a7a6-01efe5efd64e",
+		"date": "2017-01-23T16:39:13.059",
+		"from": "mg"
+	},
+	{
+		"booked": false,
+		"reason": "Präsentation HAL am Sprint Review",
+		"amount": 1,
+		"to": "hpk",
+		"id": "f6046de8-4340-45e4-b62b-a8381f5d3f5a",
+		"date": "2017-01-23T16:41:09.005",
+		"from": "mg"
+	},
+	{
+		"booked": false,
+		"reason": "Weil er immer hilfsbereit ist",
+		"amount": 1,
+		"to": "fep",
+		"id": "db36a8af-4832-4f11-ab42-0f446009ed05",
+		"date": "2017-01-23T16:41:37.192",
+		"from": "so"
+	},
+	{
+		"booked": false,
+		"reason": "Weil er so klar formuliert",
+		"amount": 1,
+		"to": "hpk",
+		"id": "191fdf6a-3b55-4c8c-ad8c-f553fbf554d4",
+		"date": "2017-01-23T16:42:57.693",
+		"from": "so"
+	}
 ]
