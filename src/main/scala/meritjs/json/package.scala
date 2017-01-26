@@ -1,8 +1,10 @@
 package meritjs
 
-import org.singlespaced.d3js.d3
+import org.scalajs.dom.EventTarget
+import org.singlespaced.d3js.{Selection, d3}
 
 import scala.scalajs.js
+import scala.scalajs.js.Array
 
 /**
   * Created by gante on 23.01.17.
@@ -21,6 +23,19 @@ trait JSMeritLink extends js.Object {
   val to:     String=js.native
   val amount: Int=js.native
   val booked: Boolean=js.native
+}
+
+@js.native
+trait Graph extends js.Object {
+  val svg: Selection[EventTarget] = js.native
+  val merits: Array[JSMeritNode] = js.native
+  val matrix: Array[Array[Double]] = js.native
+}
+
+object Graph {
+  def apply(svg: Selection[EventTarget], merits: Array[JSMeritNode], matrix: Array[Array[Double]] = null): Graph = {
+    js.Dynamic.literal(svg = svg,  merits = merits, matrix = matrix).asInstanceOf[Graph]
+  }
 }
 
 @js.native

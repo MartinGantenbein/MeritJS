@@ -1,10 +1,11 @@
 package meritjs
 
-import meritjs.layouts.Force
+import meritjs.layouts.{Chord, Force}
+import org.scalajs.dom.raw.EventTarget
 
 import scala.scalajs.js
 import scala.scalajs.js.Array
-import org.singlespaced.d3js.d3
+import org.singlespaced.d3js.{Selection, d3}
 
 import scala.scalajs.js.annotation.JSExport
 
@@ -13,7 +14,6 @@ import scala.scalajs.js.annotation.JSExport
   */
 object MeritJS extends js.JSApp with Json {
   var config: Config = _
-  var onReady: Option[String] = None
   var merits: Array[JSMeritNode] = _
   var trx: Array[JSMeritLink] = _
 
@@ -22,19 +22,34 @@ object MeritJS extends js.JSApp with Json {
   }
 
   @JSExport
-  def draw(graphType: String): Unit = {
+  def draw(graphType: String): Graph = {
+    val svg = d3.select("#graph")
     if(trx == null) {
-      println("setting onReady")
-      onReady = Option(graphType)
+      import scala.scalajs.js.timers._
+
+      setTimeout(1000) {
+         js.eval(s"draw('$graphType')")
+      }
+      Graph(svg, merits)
     }
     else {
-      val svg = d3.select("#graph")
       svg.selectAll("*").remove()
       svg.attr("width", config.graph_width)
       svg.attr("height", config.graph_height)
       graphType match {
-        case "force" => new Force(svg, merits, trx, config.graph_width, config.graph_height)
-        case "force-split" => new Force(svg, merits, trx, config.graph_width, config.graph_height, true)
+        case "force" => {
+          // TODO: use function instead of constructor and return the Graph object
+          new Force(svg, merits, trx, config.graph_width, config.graph_height)
+          Graph(svg, merits)
+        }
+        case "force-split" => {
+          // TODO: use function instead of constructor and return the Graph object
+          new Force(svg, merits, trx, config.graph_width, config.graph_height, true)
+          Graph(svg, merits)
+        }
+        case "chord" => {
+          Chord.draw(svg, merits, trx, config.graph_width, config.graph_height)
+        }
       }
     }
   }
@@ -48,15 +63,10 @@ object MeritJS extends js.JSApp with Json {
 
   private def meritCallback(trxUri: String)(nodesJson: Array[JSMeritNode]): Unit = {
     merits = nodesJson
-    getJson(trxUri, trxCallback)
+    getJson(trxUri + "?booked=false", trxCallback)
   }
 
   private def trxCallback(trxJson: Array[JSMeritLink]) = {
     trx = trxJson
-
-    onReady match {
-      case None => {}
-      case Some(g) => draw(g)
-    }
   }
 }
