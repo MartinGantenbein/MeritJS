@@ -27,14 +27,20 @@ trait JSMeritLink extends js.Object {
 
 @js.native
 trait Graph extends js.Object {
-  val svg: Selection[EventTarget] = js.native
+  val arc: js.Object = js.native
+  val path: js.Object = js.native
   val merits: Array[JSMeritNode] = js.native
-  val matrix: Array[Array[Double]] = js.native
+  val group: js.Object = js.native
+  val groupPath: js.Object = js.native
+  val groupText: js.Object = js.native
+  val chord: js.Object = js.native
 }
 
 object Graph {
-  def apply(svg: Selection[EventTarget], merits: Array[JSMeritNode], matrix: Array[Array[Double]] = null): Graph = {
-    js.Dynamic.literal(svg = svg,  merits = merits, matrix = matrix).asInstanceOf[Graph]
+  def apply(merits: Array[JSMeritNode], arc: js.Object = null, path: js.Object = null, group: js.Object = null,
+            groupPath: js.Object = null, groupText: js.Object = null, chord: js.Object = null): Graph = {
+    js.Dynamic.literal(merits = merits, arc = arc, path = path, group = group,
+      groupPath = groupPath, groupText = groupText, chord = chord).asInstanceOf[Graph]
   }
 }
 
