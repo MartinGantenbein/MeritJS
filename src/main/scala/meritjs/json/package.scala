@@ -27,6 +27,7 @@ trait JSMeritLink extends js.Object {
 
 @js.native
 trait Graph extends js.Object {
+  val svg: js.Object = js.native
   val arc: js.Object = js.native
   val path: js.Object = js.native
   val merits: Array[JSMeritNode] = js.native
@@ -38,8 +39,8 @@ trait Graph extends js.Object {
 
 object Graph {
   def apply(merits: Array[JSMeritNode], arc: js.Object = null, path: js.Object = null, group: js.Object = null,
-            groupPath: js.Object = null, groupText: js.Object = null, chord: js.Object = null): Graph = {
-    js.Dynamic.literal(merits = merits, arc = arc, path = path, group = group,
+            groupPath: js.Object = null, groupText: js.Object = null, chord: js.Object = null)(implicit svg: Selection[EventTarget]): Graph = {
+    js.Dynamic.literal(svg = svg, merits = merits, arc = arc, path = path, group = group,
       groupPath = groupPath, groupText = groupText, chord = chord).asInstanceOf[Graph]
   }
 }
@@ -47,12 +48,7 @@ object Graph {
 @js.native
 trait Config extends js.Object {
   val baseUrl: String=js.native
-  val version: String=js.native
-  val users: String=js.native
-  val transactions: String=js.native
-  val merits: String=js.native
-  val graph_width: Double=js.native
-  val graph_height: Double=js.native
+  val team_auth: String=js.native
 }
 
 trait Json {

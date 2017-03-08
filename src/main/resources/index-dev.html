@@ -23,11 +23,18 @@
     </style>
 </head>
 <body>
-<svg id="graph"></svg>
+<svg id="graph" width="800" height="800"></svg>
 <script type="text/javascript" src="../meritjs-jsdeps.js"></script>
 <script type="text/javascript" src="../meritjs-fastopt.js"></script>
 <script type="text/javascript" src="../meritjs-launcher.js"></script>
 <script>
+    var cfg =
+        {
+          "baseUrl": "http://localhost:9000",
+          "team_auth": "<team_key>"
+        }
+
+    meritjs.MertiJS().init(cfg);
     meritjs.MeritJS().draw('force');
 </script>
 </body>

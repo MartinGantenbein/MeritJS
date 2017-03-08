@@ -19,7 +19,7 @@ class ForceLink(override val source: ForceNode, override val target: ForceNode, 
 
 object Force {
   def draw(users: Array[JSMeritNode], transactions: Array[JSMeritLink],
-            width: Double, height: Double, split: Boolean = false)(implicit svg: Selection[EventTarget]): Graph = {
+           split: Boolean = false)(implicit svg: Selection[EventTarget]): Graph = {
     val nodes = if(split) {
       users.flatMap(n => Array(
         new ForceNode(s"from: ${n.userId}", n.name, Option(n.sent), None, "#0f0"),
@@ -52,6 +52,9 @@ object Force {
     }
 
     val links = if(split) getLinks("from: ", "to: ") else getLinks()
+
+    val width = svg.attr("width").toDouble
+    val height = svg.attr("height").toDouble
 
     val force = d3.layout.force()
       .size(width, height)

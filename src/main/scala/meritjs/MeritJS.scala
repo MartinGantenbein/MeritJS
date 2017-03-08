@@ -16,8 +16,14 @@ object MeritJS extends js.JSApp with Json {
   var merits: Array[JSMeritNode] = _
   var trx: Array[JSMeritLink] = _
 
-  def main(): Unit = {
-    getJson("config.json", configCallback)
+  def main(): Unit = {}
+
+  @JSExport
+  def init(cfg: Config) = {
+    val trxUri = s"${cfg.baseUrl}/v1/transactions?auth=${cfg.team_auth}"
+    val mrtUri = s"${cfg.baseUrl}/v1/merits/t3?auth=${cfg.team_auth}"
+    getJson(mrtUri, meritCallback(trxUri))
+    config = cfg
   }
 
   @JSExport
@@ -33,29 +39,18 @@ object MeritJS extends js.JSApp with Json {
     }
     else {
       svg.selectAll("*").remove()
-      svg.attr("width", config.graph_width)
-      svg.attr("height", config.graph_height)
+
       graphType match {
-        case "force" =>
-          Force.draw(merits, trx, config.graph_width, config.graph_height)
-        case "force-split" =>
-          Force.draw(merits, trx, config.graph_width, config.graph_height, true)
-        case "chord" =>
-          Chord.draw(merits, trx, config.graph_width, config.graph_height)
+        case "force" => Force.draw(merits, trx)
+        case "force-split" => Force.draw(merits, trx, true)
+        case "chord" => Chord.draw(merits, trx)
       }
     }
   }
 
-  private def configCallback(cfg: Config) {
-    val trxUri = s"${cfg.baseUrl}/${cfg.version}/${cfg.transactions}"
-    val mrtUri = s"${cfg.baseUrl}/${cfg.version}/${cfg.merits}"
-    getJson(mrtUri, meritCallback(trxUri))
-    config = cfg
-  }
-
   private def meritCallback(trxUri: String)(nodesJson: Array[JSMeritNode]): Unit = {
     merits = nodesJson
-    getJson(trxUri + "?booked=false", trxCallback)
+    getJson(trxUri + "&booked=false", trxCallback)
   }
 
   private def trxCallback(trxJson: Array[JSMeritLink]) = {

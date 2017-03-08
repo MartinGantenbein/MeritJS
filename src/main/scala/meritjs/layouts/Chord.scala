@@ -17,11 +17,12 @@ import js.Dynamic.global
 object Chord {
   private[this] class ChordGroup(val id: String, val name: String, val sent: Option[Int], val received: Option[Int], override val fill: String = "#000") extends User
 
-  def draw(users: Array[JSMeritNode], transactions: Array[JSMeritLink],
-           width: Double, height: Double)(implicit svg: Selection[EventTarget]): Graph = {
+  def draw(users: Array[JSMeritNode], transactions: Array[JSMeritLink])(implicit svg: Selection[EventTarget]): Graph = {
     def getMerits(sender: JSMeritNode, receiver: JSMeritNode): Double = {
       transactions.filter(p => p.from == sender.userId && p.to == receiver.userId).map(_.amount).sum
     }
+    val width = svg.attr("width").toDouble
+    val height = svg.attr("height").toDouble
 
     val outerRadius = math.min(width, height) / 2 - 10
     val innerRadius = outerRadius - 24
