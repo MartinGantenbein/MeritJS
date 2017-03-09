@@ -4,7 +4,7 @@ import org.scalajs.dom.EventTarget
 import org.singlespaced.d3js.{Selection, d3}
 
 import scala.scalajs.js
-import scala.scalajs.js.Array
+import scala.scalajs.js.UndefOr
 
 /**
   * Created by gante on 23.01.17.
@@ -13,8 +13,8 @@ import scala.scalajs.js.Array
 trait JSMeritNode extends js.Object {
   val userId: String=js.native
   val name: String=js.native
-  val sent: Int=js.native
-  val received: Int=js.native
+  val sent: UndefOr[Int]=js.native
+  val received: UndefOr[Int]=js.native
 }
 
 @js.native
@@ -28,20 +28,13 @@ trait JSMeritLink extends js.Object {
 @js.native
 trait Graph extends js.Object {
   val svg: js.Object = js.native
-  val arc: js.Object = js.native
-  val path: js.Object = js.native
-  val merits: Array[JSMeritNode] = js.native
   val group: js.Object = js.native
-  val groupPath: js.Object = js.native
-  val groupText: js.Object = js.native
   val chord: js.Object = js.native
 }
 
 object Graph {
-  def apply(merits: Array[JSMeritNode], arc: js.Object = null, path: js.Object = null, group: js.Object = null,
-            groupPath: js.Object = null, groupText: js.Object = null, chord: js.Object = null)(implicit svg: Selection[EventTarget]): Graph = {
-    js.Dynamic.literal(svg = svg, merits = merits, arc = arc, path = path, group = group,
-      groupPath = groupPath, groupText = groupText, chord = chord).asInstanceOf[Graph]
+  def apply(group: js.Object = null, chord: js.Object = null)(implicit svg: Selection[EventTarget]): Graph = {
+    js.Dynamic.literal(svg = svg, group = group, chord = chord).asInstanceOf[Graph]
   }
 }
 

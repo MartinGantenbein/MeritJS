@@ -35,7 +35,7 @@ object MeritJS extends js.JSApp with Json {
       setTimeout(1000) {
          js.eval(s"draw('$graphType')")
       }
-      Graph(merits)
+      Graph()
     }
     else {
       svg.selectAll("*").remove()

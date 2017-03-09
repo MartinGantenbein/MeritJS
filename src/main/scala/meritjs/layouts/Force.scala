@@ -6,14 +6,14 @@ import org.scalajs.dom.EventTarget
 import org.singlespaced.d3js.Ops._
 import org.singlespaced.d3js.{Link, Selection, d3}
 
-import scala.scalajs.js.Array
+import scala.scalajs.js.{Array, UndefOr}
 import scalajs.js.JSConverters._
 
 /**
   * Created by gante on 22.01.17.
   */
 
-class ForceNode(val id: String, val name: String, val sent: Option[Int], val received: Option[Int], override val fill: String = "#000") extends Node with User
+class ForceNode(val id: String, val name: String, val sent: UndefOr[Int], val received: UndefOr[Int], override val fill: String = "#000") extends Node with User
 
 class ForceLink(override val source: ForceNode, override val target: ForceNode, val amount: Double) extends Link[ForceNode]
 
@@ -22,11 +22,11 @@ object Force {
            split: Boolean = false)(implicit svg: Selection[EventTarget]): Graph = {
     val nodes = if(split) {
       users.flatMap(n => Array(
-        new ForceNode(s"from: ${n.userId}", n.name, Option(n.sent), None, "#0f0"),
-        new ForceNode(s"to: ${n.userId}", n.name, None, Option(n.received), "#f00")))
+        new ForceNode(s"from: ${n.userId}", n.name, n.sent, null, "#0f0"),
+        new ForceNode(s"to: ${n.userId}", n.name, null, n.received, "#f00")))
     }
     else {
-      users.map(n => new ForceNode(n.userId, n.name, Option(n.sent), Option(n.received)))
+      users.map(n => new ForceNode(n.userId, n.name, n.sent, n.received))
     }
 
     def getLinks(senderPrefix: String = "", receiverPrefix: String = ""): Array[ForceLink] = {
@@ -81,6 +81,6 @@ object Force {
     force.on("tick", _ => setAttributes(link, node))
     force.start()
 
-    Graph(users)
+    Graph()
   }
 }

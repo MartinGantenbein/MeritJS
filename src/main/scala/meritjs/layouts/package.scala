@@ -3,7 +3,7 @@ package meritjs
 import org.scalajs.dom.EventTarget
 import org.singlespaced.d3js.Selection
 
-import scala.scalajs.js.Array
+import scala.scalajs.js.{Array, UndefOr}
 
 /**
   * Created by mg on 28.01.2017.
@@ -21,12 +21,12 @@ package object layouts {
 trait User {
   val id: String
   val name: String
-  val sent: Option[Int]
-  val received: Option[Int]
+  val sent: UndefOr[Int]
+  val received: UndefOr[Int]
   val fill: String = "#000"
 
   def getLabel: String = {
-    (sent, received) match {
+    (sent.toOption, received.toOption) match {
       case (None, None) => s"$id"
       case (Some(s), None) => s"$id (-$s)"
       case (None, Some(r)) => s"$id (+$r)"
@@ -35,7 +35,7 @@ trait User {
   }
 
   def getTooltip: String = {
-    (sent, received) match {
+    (sent.toOption, received.toOption) match {
       case (None, None) => s"$name"
       case (Some(s), None) => s"$name (sent $s"
       case (None, Some(r)) => s"$name (received $r)"
