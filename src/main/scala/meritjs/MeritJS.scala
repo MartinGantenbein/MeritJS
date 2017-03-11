@@ -28,6 +28,11 @@ object MeritJS extends js.JSApp with Json {
 
   @JSExport
   def draw(graphType: String): Graph = {
+    def getMerits(sender: JSMeritNode, receiver: JSMeritNode): (Double, String) = {
+      val merits = trx.filter(p => p.from == sender.userId && p.to == receiver.userId).map(_.amount).sum
+      (merits, s"${sender.name} -> ${receiver.name}: $merits")
+    }
+
     implicit val svg = d3.select("#graph")
     if(trx == null) {
       import scala.scalajs.js.timers._
@@ -42,8 +47,13 @@ object MeritJS extends js.JSApp with Json {
 
       graphType match {
         case "force" => Force.draw(merits, trx)
-        case "force-split" => Force.draw(merits, trx, true)
-        case "chord" => Chord.draw(merits, trx)
+        case "force-split" => Force.draw(merits, trx, split = true)
+        case "chord-recv" => {
+          Chord.draw(merits, merits.map(u => merits.map(getMerits(_, u))))
+        }
+        case "chord-send" => {
+          Chord.draw(merits, merits.map(u => merits.map(getMerits(u, _))))
+        }
       }
     }
   }

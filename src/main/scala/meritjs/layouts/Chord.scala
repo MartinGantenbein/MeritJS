@@ -1,6 +1,6 @@
 package meritjs.layouts
 
-import meritjs.{Graph, JSMeritLink, JSMeritNode, User}
+import meritjs.{Graph, JSMeritNode, User}
 import org.scalajs.dom.EventTarget
 import org.scalajs.dom.raw.{SVGPathElement, SVGTextContentElement}
 import org.singlespaced.d3js.Ops._
@@ -19,10 +19,20 @@ import js.Dynamic.global
 object Chord {
   private[this] class ChordGroup(val id: String, val name: String, val sent: UndefOr[Int], val received: UndefOr[Int], override val fill: String = "#000") extends User
 
-  def draw(users: Array[JSMeritNode], transactions: Array[JSMeritLink])(implicit svg: Selection[EventTarget]): Graph = {
-    def getMerits(sender: JSMeritNode, receiver: JSMeritNode): Double = {
-      transactions.filter(p => p.from == sender.userId && p.to == receiver.userId).map(_.amount).sum
+  def draw(users: Array[JSMeritNode], matrix: Array[Array[(Double, String)]])(implicit svg: Selection[EventTarget]): Graph = {
+    val fill = d3.scale.category20()
+    val coloredUsers = users.zipWithIndex.map(u => new ChordGroup(u._1.userId, u._1.name, u._1.sent, u._1.received, fill(u._2.toString)))
+/*
+    val nodes = if(split) {
+      users.flatMap(n => Array(
+        new ForceNode(s"from: ${n.userId}", n.name, n.sent, null, "#0f0"),
+        new ForceNode(s"to: ${n.userId}", n.name, null, n.received, "#f00")))
     }
+    else {
+      users.map(n => new ForceNode(n.userId, n.name, n.sent, n.received))
+    }
+*/
+
     val width = svg.attr("width").toDouble
     val height = svg.attr("height").toDouble
 
@@ -42,14 +52,10 @@ object Chord {
       .attr("id", "circle")
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
 
-    val fill = d3.scale.category20()
-
     g.append("circle")
       .attr("r", outerRadius)
 
-    layout.matrix(users.map(u => users.map(getMerits(_, u))))
-
-    val coloredUsers: Array[ChordGroup] = users.zipWithIndex.map(u => new ChordGroup(u._1.userId, u._1.name, u._1.sent, u._1.received, fill(u._2.toString)))
+    layout.matrix(matrix.map(_.map(_._1)))
 
     // Add a group per neighborhood.
     val group: Selection[Group] = addData(layout.groups(), "group", "g")(g)
@@ -59,7 +65,7 @@ object Chord {
 
     // Add the group arc
     val groupPath = group.append("path")
-      .attr("id", (_: js.Object, i: Int) => users(i).userId)
+      .attr("id", (_: js.Object, i: Int) => coloredUsers(i).id)
       .attr("d", (n: js.Object, i: Int) => arc(n.asInstanceOf[JSMeritNode], i))
       .style("fill", (_: js.Object, i: Int) => coloredUsers(i).fill)
 
@@ -78,17 +84,16 @@ object Chord {
     def chooseLabel(element: SVGTextContentElement, availableLength: Double, labels: List[String]): Unit = {
       labels match {
           case Nil => element.childNodes(0).textContent = ""
-          case _ => {
+          case _ =>
             element.childNodes(0).textContent = labels.head
             if (availableLength < element.getComputedTextLength())
               chooseLabel(element, availableLength, labels.tail)
-          }
       }
     }
 
-    for(i <- 0 to groupPath(0).length - 1) {
+    for(i <- 0 until groupPath(0).length) {
       val t = groupText(0)(i).asInstanceOf[SVGTextContentElement]
-      val availableLength = groupPath(0)(i).asInstanceOf[SVGPathElement].getTotalLength() / 2 - 16
+      val availableLength = groupPath(0)(i).asInstanceOf[SVGPathElement].getTotalLength() / 2 - 36
 
       chooseLabel(t, availableLength, coloredUsers(i).getLabelAlternatives)
     }
@@ -102,8 +107,7 @@ object Chord {
     // Add an elaborate mouseover title for each chord.
     chord.append("title").text((d: Any, _: Int) => {
       val l = d.asInstanceOf[svgLink[Node]]
-      s"${coloredUsers(l.source.index.toInt).name} -> ${coloredUsers(l.target.index.toInt).name}: ${l.target.value}\n" +
-        s"${coloredUsers(l.target.index.toInt).name} -> ${coloredUsers(l.source.index.toInt).name}: ${l.source.value}"
+      s"${matrix(l.source.index.toInt)(l.target.index.toInt)._2}\n${matrix(l.target.index.toInt)(l.source.index.toInt)._2}"
     })
 
     // fading others on mouseover
@@ -113,7 +117,7 @@ object Chord {
       (l, _, _) => l.source.index != i && l.target.index != i)
     )
 */
-    g.on("mouseleave", (_, _, _) => chord.classed("fade", false))
+    g.on("mouseleave", (_, _, _) => chord.classed("fade", value = false))
 
     Graph(group, chord)
   }
