@@ -76,7 +76,7 @@ object Force {
       .attr("dy", "0.35em")
       .text((n: ForceNode) => n.getLabel)
 
-    node.append("title").text((n: ForceNode) => n.getTooltip)
+    node.append("title").text((n: ForceNode) => n.getTooltip())
 
     force.on("tick", _ => setAttributes(link, node))
     force.start()

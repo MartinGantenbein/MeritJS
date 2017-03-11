@@ -34,13 +34,20 @@ trait User {
     }
   }
 
-  def getTooltip: String = {
+  def getTooltip(recLabel: String = "received ", sentLabel: String = "sent "): String = {
     (sent.toOption, received.toOption) match {
       case (None, None) => s"$name"
-      case (Some(s), None) => s"$name (sent $s"
-      case (None, Some(r)) => s"$name (received $r)"
-      case (Some(s), Some(r)) => s"$name (received $r / sent $s)"
+      case (Some(s), None) => s"$name ($sentLabel $s"
+      case (None, Some(r)) => s"$name ($recLabel $r)"
+      case (Some(s), Some(r)) => s"$name ($recLabel $r / $sentLabel $s)"
     }
+  }
+
+  /**
+    * @return a list of possible labels, ordered by length descending
+    */
+  def getLabelAlternatives: List[String] = {
+    List(getTooltip(), getTooltip("+", "-"), getLabel, id)
   }
 }
 

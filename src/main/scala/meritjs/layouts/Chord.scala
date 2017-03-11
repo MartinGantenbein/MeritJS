@@ -2,6 +2,7 @@ package meritjs.layouts
 
 import meritjs.{Graph, JSMeritLink, JSMeritNode, User}
 import org.scalajs.dom.EventTarget
+import org.scalajs.dom.raw.{SVGPathElement, SVGTextContentElement}
 import org.singlespaced.d3js.Ops._
 import org.singlespaced.d3js.chordModule.{Group, Node}
 import org.singlespaced.d3js.svg.Arc
@@ -54,7 +55,7 @@ object Chord {
     val group: Selection[Group] = addData(layout.groups(), "group", "g")(g)
 
     group.append("title")
-      .text((_: js.Object, i: Int) => coloredUsers(i).getTooltip)
+      .text((_: js.Object, i: Int) => coloredUsers(i).getTooltip())
 
     // Add the group arc
     val groupPath = group.append("path")
@@ -63,18 +64,34 @@ object Chord {
       .style("fill", (_: js.Object, i: Int) => coloredUsers(i).fill)
 
     // Add a text label
-    val groupText: Selection[Group] = group.append("text")
+    val groupText: Selection[Group] = group
+      .append("text")
       .attr("x", 6)
       .attr("dy", 15)
+      .attr("dx", 10)
 
-    groupText.append("textPath")
+    groupText
+      .append("textPath")
       .attr("xlink:href", (d: js.Object, i: Int) => s"#${coloredUsers(i).id}" )
-      .text((d: js.Object, i: Int) => if (d.asInstanceOf[Group].value == 0) "" else coloredUsers(i).id)
+      .text((d: js.Object, i: Int) => "")
 
-    // Remove the labels that don't fit. :(
-    // mg: cannot translate to Scala.JS
-//    groupText.filter(function(d, i) { return groupPath[0][i].getTotalLength() / 2 - 16 < this.getComputedTextLength(); })
-//      .remove();
+    def chooseLabel(element: SVGTextContentElement, availableLength: Double, labels: List[String]): Unit = {
+      labels match {
+          case Nil => element.childNodes(0).textContent = ""
+          case _ => {
+            element.childNodes(0).textContent = labels.head
+            if (availableLength < element.getComputedTextLength())
+              chooseLabel(element, availableLength, labels.tail)
+          }
+      }
+    }
+
+    for(i <- 0 to groupPath(0).length - 1) {
+      val t = groupText(0)(i).asInstanceOf[SVGTextContentElement]
+      val availableLength = groupPath(0)(i).asInstanceOf[SVGPathElement].getTotalLength() / 2 - 16
+
+      chooseLabel(t, availableLength, coloredUsers(i).getLabelAlternatives)
+    }
 
     // Add the chords
     val chord = addData(layout.chords(), "chord", "path")(g)
