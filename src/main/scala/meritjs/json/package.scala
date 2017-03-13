@@ -17,6 +17,12 @@ trait JSMeritNode extends js.Object {
   val received: UndefOr[Int]=js.native
 }
 
+object JSMeritNode {
+  def apply(userId: String, name: String, sent: UndefOr[Int] = js.undefined, received: UndefOr[Int] = js.undefined): JSMeritNode = {
+    js.Dynamic.literal(userId = userId, name = name, sent = sent, received = received).asInstanceOf[JSMeritNode]
+  }
+}
+
 @js.native
 trait JSMeritLink extends js.Object {
   val from:   String=js.native

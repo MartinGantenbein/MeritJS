@@ -28,10 +28,12 @@ object MeritJS extends js.JSApp with Json {
 
   @JSExport
   def draw(graphType: String): Graph = {
-    def getMerits(sender: JSMeritNode, receiver: JSMeritNode): (Double, String) = {
-      val merits = trx.filter(p => p.from == sender.userId && p.to == receiver.userId).map(_.amount).sum
-      (merits, s"${sender.name} -> ${receiver.name}: $merits")
+    def getMerits(sender: JSMeritNode, recipient: JSMeritNode, senderPrefix: String = "", recipientPrefix: String = ""): (Double, String) = {
+      val merits = trx.filter(p => s"$senderPrefix${p.from}" == sender.userId && s"$recipientPrefix${p.to}" == recipient.userId).map(_.amount).sum
+      (merits, s"${sender.name} -> ${recipient.name}: $merits")
     }
+    def sender(node: JSMeritNode): JSMeritNode = JSMeritNode(s"from: ${node.userId}", node.name, sent = node.sent)
+    def recipient(node: JSMeritNode): JSMeritNode = JSMeritNode(s"to: ${node.userId}", node.name, received = node.received)
 
     implicit val svg = d3.select("#graph")
     if(trx == null) {
@@ -48,12 +50,14 @@ object MeritJS extends js.JSApp with Json {
       graphType match {
         case "force" => Force.draw(merits, trx)
         case "force-split" => Force.draw(merits, trx, split = true)
-        case "chord-recv" => {
-          Chord.draw(merits, merits.map(u => merits.map(getMerits(_, u))))
-        }
-        case "chord-send" => {
-          Chord.draw(merits, merits.map(u => merits.map(getMerits(u, _))))
-        }
+        case "chord-recv" =>  Chord.draw(merits, merits.map(u => merits.map(getMerits(_, u))))
+        case "chord-send" =>  Chord.draw(merits, merits.map(u => merits.map(getMerits(u, _))))
+        case "chord-both" =>
+          val both: Array[JSMeritNode] = merits.map(sender) union merits.map(recipient)
+          Chord.draw(both, both.map(u => both.map {
+            if (u.userId.startsWith("to: ")) getMerits(_, u, senderPrefix = "from: ", recipientPrefix = "to: ")
+            else getMerits(u, _, senderPrefix = "from: ", recipientPrefix = "to: ").copy(_2 = "")
+          }))
       }
     }
   }

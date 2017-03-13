@@ -11,7 +11,6 @@ import org.singlespaced.d3js.svg.chordModule.{Link => svgLink, Node => svgNode}
 
 import scala.scalajs.js
 import scala.scalajs.js.{Array, UndefOr}
-import js.Dynamic.global
 
 /**
   * Created by mg on 26.01.2017.
@@ -107,7 +106,7 @@ object Chord {
     // Add an elaborate mouseover title for each chord.
     chord.append("title").text((d: Any, _: Int) => {
       val l = d.asInstanceOf[svgLink[Node]]
-      s"${matrix(l.source.index.toInt)(l.target.index.toInt)._2}\n${matrix(l.target.index.toInt)(l.source.index.toInt)._2}"
+      s"${matrix(l.source.index.toInt)(l.target.index.toInt)._2}\n${matrix(l.target.index.toInt)(l.source.index.toInt)._2}".trim
     })
 
     // fading others on mouseover
